@@ -1,0 +1,2 @@
+# MCHOSE-G3-
+MCHOSE G3迈丛电量显示
