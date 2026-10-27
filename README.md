@@ -4,7 +4,7 @@
 
 一个约 200 行的 Python 小程序：托盘彩色数字图标 + 充电状态 + 低电提醒 + 开机自启，零安装、零管理员权限。
 
-> 协议是纯手工逆向的：原始款 G3 的接收器（258A:0138，SINO WEALTH 方案）没有任何公开资料，现有开源工具（mchose-linux 等）均不支持该型号。本项目的帧格式说明见[工作原理](#工作原理)一节，全部探测脚本归档在 [`tools/`](tools/)。
+> 协议是纯手工逆向的：原始款 G3 的接收器（258A:0138，SINO WEALTH 方案）没有任何公开资料，现有开源工具（mchose-linux 等）均不支持该型号。本项目的帧格式说明见[工作原理](#工作原理)一节，全部探测脚本归档在 [`tools/`](tools/)。**本项目为非官方第三方工具，与迈丛（MCHOSE）无关**，详见文末[声明](#声明)。
 
 ## 功能
 
@@ -138,8 +138,31 @@ G3 原始款的 2.4G 接收器是 SINO WEALTH（鑫联胜）方案，HID 拓扑�
 - 电量为固件电压估算值，非精确计量
 - 休眠/离线是超时判定：置灰要等约 2 分钟（120 秒无帧），恢复最长要等 48 秒
 
+## 项目结构
+
+```
+MCHOSE-G3/
+├── g3_tray.pyw        主程序：托盘常驻、HID 监听与图标渲染
+├── build_exe.bat      一键打包 dist/MCHOSEG3Battery.exe
+├── icon.ico           exe 图标（由 tools/make_exe_icon.py 生成）
+├── README.md / LICENSE / .gitignore
+└── tools/             逆向探测脚本归档，见「tools/ 目录一览」
+```
+
+`dist/` 与 `g3_tray.log` 为运行产物，不入库。
+
 ## 参考
 
 - [alexfrih/mchose-linux](https://github.com/alexfrih/mchose-linux) —— 迈丛 5253/3837 家族（L7/M7/A7/K7 等）协议文档，明确不覆盖原始 G3
 - [Dk000t/MCHOSEWaybarBattery](https://github.com/Dk000t/MCHOSEWaybarBattery) —— 通过网页驱动抓电量的另一思路
 - [迈丛官网](https://www.mchose.com.cn/) —— 官方网页驱动（仅支持新款 G3）
+
+## 声明
+
+- 本项目为非官方的第三方小工具，与迈丛（MCHOSE）及其官方驱动 M HUB 无任何关联
+- 仅被动读取用户自有设备经 2.4G 主动上报的 HID 数据：不发送指令、不修改固件、不分发任何厂商软件
+- 协议帧格式为个人实测观察所得；使用、修改与分发的条件以文末 [MIT 许可证](LICENSE)为准
+
+## 许可证
+
+本项目以 [MIT License](LICENSE) 开源：可自由使用、修改、分发（含商用），唯一要求是在副本中保留原版权声明。软件按"现状"提供，作者不对使用结果作任何担保。
